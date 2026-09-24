@@ -1,0 +1,189 @@
+/* admin-dashboard-style.css */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    background-color: #f7f4ed;
+    background-image: radial-gradient(#d6ccc2 1px, transparent 1px);
+    background-size: 20px 20px;
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    color: #2d2a26;
+    min-height: 100vh;
+}
+
+.navbar {
+    background-color: #0f1c18;
+    padding: 20px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+.nav-brand {
+    font-family: 'Georgia', serif;
+    font-size: 22px;
+    color: #ffffff;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 12px;
+}
+
+.brand-logo {
+    width: 38px;
+    height: 38px;
+    border-radius: 50%;
+    object-fit: cover;
+    border: 1px solid rgba(212, 175, 55, 0.5);
+    background-color: #ffffff;
+}
+
+.nav-brand span {
+    color: #d4af37;
+}
+
+.logout-btn {
+    border: 1px solid #d4af37;
+    background-color: transparent;
+    padding: 8px 20px;
+    border-radius: 20px;
+    font-size: 13px;
+    color: #d4af37;
+    text-decoration: none;
+    transition: all 0.2s ease;
+}
+
+.logout-btn:hover {
+    background-color: #d4af37;
+    color: #14231E;
+}
+
+.dashboard-container {
+    max-width: 1200px;
+    margin: 40px auto;
+    padding: 0 20px;
+}
+
+.dashboard-header {
+    margin-bottom: 30px;
+}
+
+.dashboard-header h1 {
+    font-family: 'Georgia', serif;
+    font-size: 36px;
+    color: #1a1816;
+    margin-bottom: 8px;
+}
+
+.dashboard-header p {
+    color: #6b635b;
+    font-size: 15px;
+}
+
+.dashboard-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+    gap: 25px;
+    margin-bottom: 40px;
+}
+
+.dash-card {
+    background: #0f1c18;
+    border: 1px solid #e3dec9;
+    border-radius: 16px;
+    padding: 30px;
+    backdrop-filter: blur(10px);
+    transition: transform 0.2s, border-color 0.2s;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.03);
+}
+
+.dash-card:hover {
+    transform: translateY(-4px);
+    border-color: rgba(212, 175, 55, 0.4);
+}
+
+.dash-card h3 {
+    font-family: 'Georgia', serif;
+    font-size: 22px;
+    margin-bottom: 12px;
+    color: #d4af37;
+}
+
+.dash-card p {
+    color: #ffffff;
+    font-size: 14px;
+    line-height: 1.5;
+    margin-bottom: 20px;
+}
+
+.dash-btn {
+    display: inline-block;
+    background-color: #DAF1DE;
+    color: #0f1c18;
+    padding: 10px 20px;
+    border-radius: 20px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 14px;
+    transition: background-color 0.2s;
+}
+
+.dash-btn:hover {
+    background-color: #2e5436;
+    color: #ffffff;
+}
+
+/* ==========================================================
+   Responsive Breakpoints
+   ========================================================== */
+@media (max-width: 768px) {
+    .navbar {
+        padding: 16px 24px;
+        flex-wrap: wrap;
+        gap: 12px;
+    }
+
+    .dashboard-container {
+        margin: 30px auto;
+    }
+
+    .dashboard-header h1 {
+        font-size: 28px;
+    }
+
+    .dashboard-header p {
+        font-size: 14px;
+    }
+
+    .dashboard-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+    }
+}
+
+@media (max-width: 480px) {
+    .navbar {
+        padding: 14px 18px;
+    }
+
+    .nav-brand {
+        font-size: 18px;
+    }
+
+    .logout-btn {
+        padding: 7px 16px;
+        font-size: 12px;
+    }
+
+    .dashboard-container {
+        padding: 0 14px;
+    }
+
+    .dash-card {
+        padding: 22px;
+    }
+}
