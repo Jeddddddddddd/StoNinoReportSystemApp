@@ -73,29 +73,41 @@ $timeline = [
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
     <title>About Us - Barangay Portal</title>
+
+    {{-- Lets the CSS hide-then-reveal elements only when JavaScript is running --}}
+    <script>document.documentElement.classList.add('js');</script>
+
     @include('partials.head')
+
+    {{-- Fonts: Fraunces (headings) + Figtree (body). System fonts are the fallback. --}}
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Figtree:wght@400..700&family=Fraunces:opsz,wght@9..144,400..700&display=swap" rel="stylesheet">
+
     <link rel="stylesheet" href="{{ asset('css/about-style.css') }}">
 </head>
 <body>
 
+
     <header class="navbar">
         <a href="{{ url('/') }}" class="nav-brand">
-            <img src="{{ asset('assets/legitlogo.png') }}" alt="Barangay Logo" class="brand-logo">
-            Barangay<span>Sto.Niño</span>
+            <img src="{{ asset('assets/legitlogo.png') }}" alt="Barangay Logo" class="brand-logo" width="44" height="44">
+            <span class="brand-text">Barangay <span class="brand-accent">Sto.Niño</span></span>
         </a>
 
-        <button class="nav-toggle" id="navToggle" aria-label="Toggle navigation">
+        <button class="nav-toggle" id="navToggle" type="button"
+                aria-label="Toggle navigation" aria-expanded="false" aria-controls="navLinks">
             <span></span>
             <span></span>
             <span></span>
         </button>
 
-        <nav class="nav-links" id="navLinks">
+        <nav class="nav-links" id="navLinks" aria-label="Main navigation">
             <a href="{{ url('/') }}">Home</a>
             <a href="{{ url('/updates') }}">Updates</a>
-            <a href="{{ url('/about') }}" class="active">About</a>
+            <a href="{{ url('/about') }}" class="active" aria-current="page">About</a>
             <a href="{{ url('/report') }}">Report & Inquiries</a>
             <a href="{{ url('/logout') }}" class="mobile-logout">Log Out</a>
         </nav>
@@ -103,89 +115,149 @@ $timeline = [
         <a href="{{ url('/logout') }}" class="admin-portal-btn desktop-logout">Log Out</a>
     </header>
 
+    <main>
+
+    <!-- Hero -->
     <section class="about-hero">
-        <div class="about-hero-text hero-animate hero-animate-text">
+        <div class="about-hero-text hero-seq">
 
-            <img src="{{ asset('assets/legitlogo.png') }}" alt="Barangay Logo" class="hero-logo">
+            <img src="{{ asset('assets/legitlogo.png') }}" alt="Barangay Logo" class="hero-logo" width="60" height="60" style="--i:0">
 
-            <span class="about-eyebrow">Welcome</span>
-            <h1>Getting to Know Barangay Sto. Niño</h1>
-            <p>
+            <span class="about-eyebrow" style="--i:1">Welcome</span>
+            <h1 style="--i:2">Getting to Know Barangay Sto.&nbsp;Niño</h1>
+            <p style="--i:3">
                 Barangay Sto. Niño is more than a local government unit — it is a community built on
                 service, transparency, and cooperation. This portal was created so that every resident
                 can easily reach barangay officials, follow community updates, and report concerns
                 without the hassle of long lines or unclear processes.
             </p>
-            <p>
+            <p style="--i:4">
                 From the barangay hall down to each of our 23 puroks, every official on this page plays
                 a part in keeping Sto. Niño safe, organized, and responsive to the needs of its residents.
                 Scroll down to meet the people behind the service.
             </p>
 
-            <ul class="hero-benefits">
+            <ul class="hero-benefits" style="--i:5">
                 <li><span>✓</span> Reach barangay officials and services online, anytime</li>
                 <li><span>✓</span> Stay updated on community announcements and programs</li>
                 <li><span>✓</span> File reports and inquiries with faster response and tracking</li>
             </ul>
         </div>
 
-        <div class="about-hero-image hero-animate hero-animate-image">
-            <img src="{{ asset('assets/newbarangay.png') }}" alt="Barangay Sto. Niño Hall">
+        <div class="about-hero-media">
+            <div class="about-hero-image">
+                <img src="{{ asset('assets/newbarangay.png') }}" alt="Barangay Sto. Niño Hall"
+                     width="1200" height="900" fetchpriority="high" decoding="async">
+            </div>
         </div>
     </section>
 
-    <!-- Community Overview -->
-    <section class="history-section">
+<!-- Community Overview -->
+<section class="history-section">
 
-        <div class="about-header reveal">
-            <span class="about-eyebrow">Our Story</span>
-            <h2>The History of Barangay Sto. Niño</h2>
-            <p>How a small settlement grew into the community it is today.</p>
+    <div class="about-header reveal">
+        <span class="about-eyebrow">Our Story</span>
+        <h2>The History of Barangay Sto. Niño</h2>
+        <p>How a small settlement grew into the community it is today.</p>
+    </div>
+
+    <!-- Barangay at a glance -->
+    <div class="stat-grid" data-stagger>
+        <div class="stat-card">
+            <span class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M3 11l9-8 9 8"/><path d="M5 10v10h14V10"/><path d="M10 20v-6h4v6"/></svg>
+            </span>
+            <span class="stat-value" data-count="23">23</span>
+            <span class="stat-label">Puroks</span>
+            <p class="stat-note">Organized communities, each with its own leader.</p>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+            </span>
+            <span class="stat-value" data-count="8">8</span>
+            <span class="stat-label">Kagawad Council</span>
+            <p class="stat-note">Elected members overseeing each barangay committee.</p>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+            </span>
+            <span class="stat-value" data-count="4">4</span>
+            <span class="stat-label">Tanod Force</span>
+            <p class="stat-note">Frontline peacekeepers for community safety.</p>
+        </div>
+        <div class="stat-card">
+            <span class="stat-icon" aria-hidden="true">
+                <svg viewBox="0 0 24 24"><path d="m12 2 3.1 6.3 6.9 1-5 4.9 1.2 6.8-6.2-3.3-6.2 3.3L7 14.2 2 9.3l6.9-1z"/></svg>
+            </span>
+            <span class="stat-value" data-count="1">1</span>
+            <span class="stat-label">Barangay Captain</span>
+            <p class="stat-note">Head of barangay leadership and governance.</p>
+        </div>
+    </div>
+
+    <!-- Story -->
+    <div class="story-grid">
+        <div class="story-lead reveal">
+            <span class="story-kicker">Our Community History</span>
+            <h3>From a close-knit settlement to a progressive community</h3>
+            <p>Barangay Sto. Niño is characterized by unity, cooperation, and active resident participation, guided by the same values as our founding settlers.</p>
+            <ul class="story-values">
+                <li>Cooperation</li>
+                <li>Faith</li>
+                <li>Care for one another</li>
+            </ul>
         </div>
 
-        <div class="history-wrapper">
-            <div class="history-card reveal">
-                <h3>Our Community History</h3>
-                <p>Barangay Sto. Niño has grown from a close-knit settlement into a progressive, vibrant community characterized by unity, cooperation, and active resident participation. Named after our beloved patron, our barangay deeply values cultural heritage while continuously embracing modern public service efficiency.</p>
-                <p>What began as a small cluster of farming and fishing households has, over the decades, developed into a fully organized barangay with its own hall, council, and network of 23 puroks — each carrying its own identity while working together under one local government.</p>
-                <p>Our local administration strives to bridge the gap between residents and government services through transparent reporting, active community updates, and prompt action on neighborhood concerns. Every program and project undertaken by the barangay is rooted in the same values that guided our founding settlers: cooperation, faith, and care for one another.</p>
+        <div class="story-points" data-stagger>
+            <div class="story-point">
+                <span class="story-point-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                </span>
+                <div>
+                    <h4>Our Roots</h4>
+                    <p>What began as a small cluster of farming and fishing households has developed into a fully organized barangay with its own hall, council, and network of 23 puroks, each carrying its own identity under one local government.</p>
+                </div>
             </div>
-
-            <div class="history-side">
-                <div class="info-chip reveal">
-                    <span class="info-chip-label">Puroks</span>
-                    <span class="info-chip-value">23</span>
+            <div class="story-point">
+                <span class="story-point-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                </span>
+                <div>
+                    <h4>Our Heritage</h4>
+                    <p>Named after our beloved patron, the barangay deeply values its cultural heritage while embracing modern, efficient public service.</p>
                 </div>
-                <div class="info-chip reveal">
-                    <span class="info-chip-label">Kagawad Council</span>
-                    <span class="info-chip-value">8</span>
-                </div>
-                <div class="info-chip reveal">
-                    <span class="info-chip-label">Tanod Force</span>
-                    <span class="info-chip-value">4</span>
-                </div>
-                <div class="info-chip reveal">
-                    <span class="info-chip-label">Barangay Captain</span>
-                    <span class="info-chip-value">1</span>
+            </div>
+            <div class="story-point">
+                <span class="story-point-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M3 10v4h3l6 4V6L6 10z"/><path d="M15.5 9.5a3.5 3.5 0 0 1 0 5M18.5 7a7 7 0 0 1 0 10"/></svg>
+                </span>
+                <div>
+                    <h4>Our Service</h4>
+                    <p>We bridge the gap between residents and government through transparent reporting, active community updates, and prompt action on neighborhood concerns.</p>
                 </div>
             </div>
         </div>
+    </div>
 
-        <!-- Timeline -->
-        <div class="timeline reveal">
-            <?php foreach ($timeline as $i => $event): ?>
-                <div class="timeline-item">
-                    <div class="timeline-dot"></div>
-                    <div class="timeline-content">
-                        <span class="timeline-year"><?php echo htmlspecialchars($event['year']); ?></span>
-                        <h4><?php echo htmlspecialchars($event['title']); ?></h4>
-                        <p><?php echo htmlspecialchars($event['text']); ?></p>
-                    </div>
+    <!-- Timeline -->
+    <h3 class="timeline-heading reveal">Our Journey Through the Years</h3>
+    <div class="timeline" id="timeline">
+        <span class="timeline-line" aria-hidden="true"></span>
+        <?php foreach ($timeline as $event): ?>
+            <div class="timeline-item reveal">
+                <div class="timeline-dot"></div>
+                <div class="timeline-content">
+                    <span class="timeline-year"><?php echo htmlspecialchars($event['year']); ?></span>
+                    <h4><?php echo htmlspecialchars($event['title']); ?></h4>
+                    <p><?php echo htmlspecialchars($event['text']); ?></p>
                 </div>
-            <?php endforeach; ?>
-        </div>
+            </div>
+        <?php endforeach; ?>
+    </div>
 
-    </section>
+</section>
 
     <!-- Core Values -->
     <section class="values-section">
@@ -195,24 +267,32 @@ $timeline = [
             <p>The principles behind every service we provide.</p>
         </div>
 
-        <div class="values-grid">
-            <div class="value-card reveal">
-                <div class="value-icon">🤝</div>
+        <div class="values-grid" data-stagger>
+            <div class="value-card">
+                <div class="value-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/></svg>
+                </div>
                 <h4>Transparency</h4>
                 <p>Open records, clear processes, and honest communication with every resident.</p>
             </div>
-            <div class="value-card reveal">
-                <div class="value-icon">⚖️</div>
+            <div class="value-card">
+                <div class="value-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M12 3v18M5 21h14M5 7h14"/><path d="m5 7-3 7a3.5 3.5 0 0 0 6 0L5 7Z"/><path d="m19 7-3 7a3.5 3.5 0 0 0 6 0l-3-7Z"/></svg>
+                </div>
                 <h4>Accountability</h4>
                 <p>Public servants who take ownership of their duties and responsibilities.</p>
             </div>
-            <div class="value-card reveal">
-                <div class="value-icon">🌿</div>
+            <div class="value-card">
+                <div class="value-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M11 20A7 7 0 0 1 9.8 6.1C15.5 5 17 4.5 19 2c1 2 2 4.2 2 8 0 5.5-4.8 10-10 10Z"/><path d="M2 21c0-3 1.85-5.36 5.08-6C9.5 14.52 12 13 13 12"/></svg>
+                </div>
                 <h4>Cleanliness</h4>
                 <p>A shared commitment to a clean, safe, and environmentally responsible barangay.</p>
             </div>
-            <div class="value-card reveal">
-                <div class="value-icon">❤️</div>
+            <div class="value-card">
+                <div class="value-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M19 14c1.49-1.46 3-3.21 3-5.5A5.5 5.5 0 0 0 16.5 3c-1.76 0-3 .5-4.5 2-1.5-1.5-2.74-2-4.5-2A5.5 5.5 0 0 0 2 8.5c0 2.3 1.5 4.05 3 5.5l7 7Z"/></svg>
+                </div>
                 <h4>Genuine Service</h4>
                 <p>Dedicated to the welfare of every resident family, without exception.</p>
             </div>
@@ -221,20 +301,25 @@ $timeline = [
 
     <!-- Vision & Mission -->
     <section class="vm-section">
-        <div class="vm-wrapper">
-            <div class="vm-card vm-vision reveal">
-                <div class="vm-icon">🔭</div>
+        <div class="vm-wrapper" data-stagger>
+            <div class="vm-card vm-vision">
+                <div class="vm-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12Z"/><circle cx="12" cy="12" r="3"/></svg>
+                </div>
                 <span class="vm-tag">Our Vision</span>
                 <p>A peaceful, progressive, and resilient community managed by dedicated public servants and empowered, law-abiding citizens.</p>
             </div>
-            <div class="vm-card vm-mission reveal">
-                <div class="vm-icon">🎯</div>
+            <div class="vm-card vm-mission">
+                <div class="vm-icon" aria-hidden="true">
+                    <svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><circle cx="12" cy="12" r="6"/><circle cx="12" cy="12" r="2"/></svg>
+                </div>
                 <span class="vm-tag">Our Mission</span>
                 <p>To deliver fast and reliable basic government services, maintain safe public spaces, and provide accessible digital platforms like this portal to address community needs efficiently.</p>
             </div>
         </div>
     </section>
 
+    <!-- Officials -->
     <section class="officials-section">
         <div class="about-header officials-header reveal">
             <span class="about-eyebrow">Leadership</span>
@@ -245,10 +330,12 @@ $timeline = [
         <!-- Barangay Captain Spotlight -->
         <div class="captain-spotlight reveal">
             <span class="captain-ribbon">Barangay Captain</span>
-            <div class="captain-photo">
-                <img src="{{ asset($captain['image']) }}"
-                    alt="{{ $captain['name'] }}"
-                    onerror="this.onerror=null; this.src='{{ asset('assets/default-avatar.png') }}';">
+            <div class="captain-photo-ring">
+                <div class="captain-photo">
+                    <img src="{{ asset($captain['image']) }}"
+                        alt="{{ $captain['name'] }}" width="148" height="148" decoding="async"
+                        onerror="this.onerror=null; this.src='{{ asset('assets/default-avatar.png') }}';">
+                </div>
             </div>
             <h3 class="captain-name"><?php echo htmlspecialchars($captain['name']); ?></h3>
             <p class="captain-position"><?php echo htmlspecialchars($captain['position']); ?></p>
@@ -256,17 +343,17 @@ $timeline = [
         </div>
 
         <!-- Barangay Kagawad -->
-        <div class="official-group reveal">
-            <div class="group-heading">
-                <span class="group-badge badge-kagawad">This is the Barangay Kagawad</span>
+        <div class="official-group group-kagawad">
+            <div class="group-heading reveal">
+                <span class="group-badge">Barangay Kagawad</span>
                 <p class="group-desc">The elected council members overseeing each committee of barangay governance.</p>
             </div>
-            <div class="officials-list">
+            <div class="officials-list" data-stagger>
                 <?php foreach ($kagawads as $kagawad): ?>
                     <div class="official-card">
                         <div class="official-photo">
                             <img src="{{ asset($kagawad['image']) }}"
-                                alt="{{ $kagawad['name'] }}"
+                                alt="{{ $kagawad['name'] }}" width="88" height="88" loading="lazy" decoding="async"
                                 onerror="this.onerror=null; this.src='{{ asset('assets/default-avatar.png') }}';">
                         </div>
                         <div class="official-info">
@@ -279,17 +366,17 @@ $timeline = [
         </div>
 
         <!-- Secretariat -->
-        <div class="official-group reveal">
-            <div class="group-heading">
-                <span class="group-badge badge-secretariat">Barangay Secretariat</span>
+        <div class="official-group group-secretariat">
+            <div class="group-heading reveal">
+                <span class="group-badge">Barangay Secretariat</span>
                 <p class="group-desc">Handling official records, financial matters, and day-to-day barangay operations.</p>
             </div>
-            <div class="officials-list">
+            <div class="officials-list" data-stagger>
                 <?php foreach ($secretariat as $member): ?>
                     <div class="official-card">
                         <div class="official-photo">
                             <img src="{{ asset($member['image']) }}"
-                                alt="{{ $member['name'] }}"
+                                alt="{{ $member['name'] }}" width="88" height="88" loading="lazy" decoding="async"
                                 onerror="this.onerror=null; this.src='{{ asset('assets/default-avatar.png') }}';">
                         </div>
                         <div class="official-info">
@@ -302,17 +389,17 @@ $timeline = [
         </div>
 
         <!-- Barangay Tanod -->
-        <div class="official-group reveal">
-            <div class="group-heading">
-                <span class="group-badge badge-tanod">This is the Barangay Tanod</span>
+        <div class="official-group group-tanod">
+            <div class="group-heading reveal">
+                <span class="group-badge">Barangay Tanod</span>
                 <p class="group-desc">Frontline peacekeepers who maintain safety and order in the community.</p>
             </div>
-            <div class="officials-list">
+            <div class="officials-list" data-stagger>
                 <?php foreach ($tanod as $member): ?>
                     <div class="official-card">
                         <div class="official-photo">
                             <img src="{{ asset($member['image']) }}"
-                                alt="{{ $member['name'] }}"
+                                alt="{{ $member['name'] }}" width="88" height="88" loading="lazy" decoding="async"
                                 onerror="this.onerror=null; this.src='{{ asset('assets/default-avatar.png') }}';">
                         </div>
                         <div class="official-info">
@@ -325,17 +412,17 @@ $timeline = [
         </div>
 
         <!-- Administrative / Records Staff -->
-        <div class="official-group reveal">
-            <div class="group-heading">
-                <span class="group-badge badge-admin">This is for the Paper Works</span>
+        <div class="official-group group-admin">
+            <div class="group-heading reveal">
+                <span class="group-badge">Administrative Staff</span>
                 <p class="group-desc">The administrative staff handling records, documentation, and clerical services.</p>
             </div>
-            <div class="officials-list">
+            <div class="officials-list" data-stagger>
                 <?php foreach ($adminStaff as $staff): ?>
                     <div class="official-card">
                         <div class="official-photo">
                             <img src="{{ asset($staff['image']) }}"
-                                alt="{{ $staff['name'] }}"
+                                alt="{{ $staff['name'] }}" width="88" height="88" loading="lazy" decoding="async"
                                 onerror="this.onerror=null; this.src='{{ asset('assets/default-avatar.png') }}';">
                         </div>
                         <div class="official-info">
@@ -348,18 +435,18 @@ $timeline = [
         </div>
 
         <!-- Purok Leaders (23) -->
-        <div class="official-group reveal">
-            <div class="group-heading">
-                <span class="group-badge badge-purok">Purok Leaders</span>
+        <div class="official-group group-purok">
+            <div class="group-heading reveal">
+                <span class="group-badge">Purok Leaders</span>
                 <p class="group-desc">Representing all 23 puroks — the closest link between residents and the barangay.</p>
             </div>
-            <div class="purok-grid">
+            <div class="purok-grid" data-stagger>
                 <?php foreach ($purokLeaders as $leader): ?>
                     <div class="purok-card">
                         <span class="purok-tag"><?php echo htmlspecialchars($leader['purok']); ?></span>
                         <div class="official-photo purok-photo">
                             <img src="{{ asset($leader['image']) }}"
-                                alt="{{ $leader['name'] }}"
+                                alt="{{ $leader['name'] }}" width="68" height="68" loading="lazy" decoding="async"
                                 onerror="this.onerror=null; this.src='{{ asset('assets/default-avatar.png') }}';">
                         </div>
                         <div class="official-info">
@@ -373,43 +460,88 @@ $timeline = [
 
     </section>
 
+    </main>
+
     <script>
-        const navToggle = document.getElementById('navToggle');
-        const navLinks = document.getElementById('navLinks');
-        navToggle.addEventListener('click', () => {
-            navLinks.classList.toggle('open');
-            navToggle.classList.toggle('open');
-        });
+        (function () {
+            const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-        // Scroll reveal (fades in one at a time based on order in DOM)
-        const revealEls = document.querySelectorAll('.reveal');
-        const revealObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('reveal-visible');
-                    revealObserver.unobserve(entry.target);
-                }
+            /* ---------- Navbar ---------- */
+            const navToggle = document.getElementById('navToggle');
+            const navLinks  = document.getElementById('navLinks');
+            const mobileMq  = window.matchMedia('(max-width: 900px)');
+
+            function setMenu(open) {
+                navLinks.classList.toggle('open', open);
+                navToggle.classList.toggle('open', open);
+                navToggle.setAttribute('aria-expanded', String(open));
+                document.body.classList.toggle('menu-open', open && mobileMq.matches);
+            }
+
+            navToggle.addEventListener('click', () => setMenu(!navLinks.classList.contains('open')));
+            navLinks.querySelectorAll('a').forEach(a => a.addEventListener('click', () => setMenu(false)));
+            document.addEventListener('keydown', e => { if (e.key === 'Escape') setMenu(false); });
+            document.addEventListener('click', e => {
+                if (!navLinks.contains(e.target) && !navToggle.contains(e.target)) setMenu(false);
             });
-        }, { threshold: 0.15 });
-        revealEls.forEach(el => revealObserver.observe(el));
+            const onBreakpoint = () => { if (!mobileMq.matches) setMenu(false); };
+            mobileMq.addEventListener ? mobileMq.addEventListener('change', onBreakpoint)
+                                      : mobileMq.addListener(onBreakpoint);
 
-        // Timeline items animate individually as they scroll in
-        const timelineItems = document.querySelectorAll('.timeline-item');
-        const timelineObserver = new IntersectionObserver((entries) => {
-            entries.forEach(entry => {
-                if (entry.isIntersecting) {
-                    entry.target.classList.add('timeline-visible');
-                    timelineObserver.unobserve(entry.target);
-                }
+            /* ---------- Scroll reveal ---------- */
+            const showAll = () => document.querySelectorAll('.reveal, [data-stagger]')
+                .forEach(el => el.classList.add('is-visible'));
+
+            // children of [data-stagger] get an index (capped so the whole cascade stays under ~400ms)
+            document.querySelectorAll('[data-stagger]').forEach(group => {
+                Array.from(group.children).forEach((child, i) => child.style.setProperty('--i', Math.min(i, 8)));
             });
-        }, { threshold: 0.3 });
-        timelineItems.forEach(el => timelineObserver.observe(el));
 
-        // Value cards stagger in
-        const valueCards = document.querySelectorAll('.value-card');
-        valueCards.forEach((card, i) => {
-            card.style.transitionDelay = (i * 0.1) + 's';
-        });
+            if (!('IntersectionObserver' in window)) {
+                showAll();
+            } else {
+                const io = new IntersectionObserver(entries => {
+                    let n = 0;
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        const el = entry.target;
+                        if (el.classList.contains('reveal')) {
+                            el.style.setProperty('--d', Math.min(n * 60, 240) + 'ms');
+                            n++;
+                        }
+                        el.classList.add('is-visible');
+                        io.unobserve(el);
+                    });
+                }, { threshold: 0.12, rootMargin: '0px 0px -6% 0px' });
+
+                document.querySelectorAll('.reveal, [data-stagger]').forEach(el => io.observe(el));
+            }
+
+            /* ---------- Count-up numbers ---------- */
+            const counters = document.querySelectorAll('[data-count]');
+            if (reduceMotion || !('IntersectionObserver' in window)) {
+                // keep the final numbers already in the HTML
+            } else {
+                counters.forEach(c => { c.textContent = '0'; });
+                const co = new IntersectionObserver(entries => {
+                    entries.forEach(entry => {
+                        if (!entry.isIntersecting) return;
+                        const el = entry.target;
+                        const target = parseInt(el.dataset.count, 10);
+                        const start = performance.now();
+                        const dur = 900;
+                        (function tick(now) {
+                            const t = Math.min((now - start) / dur, 1);
+                            el.textContent = Math.round(target * (1 - Math.pow(1 - t, 3)));
+                            if (t < 1) requestAnimationFrame(tick);
+                        })(start);
+                        co.unobserve(el);
+                    });
+                }, { threshold: 0.6 });
+                counters.forEach(c => co.observe(c));
+            }
+
+        })();
     </script>
 
 </body>
